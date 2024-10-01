@@ -35,12 +35,20 @@ export class HpLambdaStack extends cdk.Stack {
      const githubBranch = this._props.repoTriggerBranch;
 
 
-     const githubToken = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
+     const githubTokenSecret  = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
 
     //  / input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch, {
     //   authentication: githubToken.secretValue,
     // }),
-    
+
+    const githubToken = githubTokenSecret.secretValue.toString();
+
+// Temporarily log the token value (for debugging purposes)
+      new cdk.CfnOutput(this, 'GitHubTokenOutput', {
+        value: githubToken || 'Token not found',
+        description: 'Temporary output of GitHub Token for debugging'
+      });
+
 
      const pipeline = new CodePipeline(this, "CDKPipeline", {
       crossAccountKeys: true,
