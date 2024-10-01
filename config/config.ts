@@ -12,9 +12,9 @@ export const AppConfig={
         },
         pipelineName: "hp-dev-demo-multiregion-github",
         pipelineStackName: "hp-dev-demo-multiregion-github",
-        repoName: "hp-demo-ci-cd-multiregion-v1",
+        repoName: "hp-demo-ci-cd-multiregion-v2",
         repoTriggerBranch: "dev",
-        githubOrg:"CSS-IT-Integration",
+        githubOrg:"piyush-dubey",
         stages: [DevEuCentral, DevUsEast ],
     }
 }

@@ -37,6 +37,10 @@ export class HpLambdaStack extends cdk.Stack {
 
      const githubToken = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
 
+    //  / input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch, {
+    //   authentication: githubToken.secretValue,
+    // }),
+
      const pipeline = new CodePipeline(this, "CDKPipeline", {
       crossAccountKeys: true,
       pipelineName:PIPELINE_NAME,
@@ -49,9 +53,7 @@ export class HpLambdaStack extends cdk.Stack {
         timeout: cdk.Duration.minutes(480),
       },
       synth: new ShellStep("deploy", {
-        input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch,{
-          authentication: githubToken.secretValue,
-        }),
+        input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch),
         commands: [ 
           "npm ci",
           "npm run build",
