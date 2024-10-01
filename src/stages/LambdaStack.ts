@@ -24,6 +24,9 @@ export class LambdaStack extends Stack {
             }
         })
 
+        //call the lambda function
+        // const entry = path.resolve(`${__dirname}/../lambdas/lex-sessions/lex-session/index.ts`);
+
 
     }
 }
