@@ -5,6 +5,7 @@ import { PipelineStackProps } from '../model/PipelineStackProps';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { LinuxBuildImage } from 'aws-cdk-lib/aws-codebuild';
 import { ApplicationStage } from '../src/stages/ApplicationStage';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class HpLambdaStack extends cdk.Stack {
@@ -33,6 +34,9 @@ export class HpLambdaStack extends cdk.Stack {
      const githubRepo = this._props.repoName;
      const githubBranch = this._props.repoTriggerBranch;
 
+
+     const githubToken = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
+
      const pipeline = new CodePipeline(this, "CDKPipeline", {
       crossAccountKeys: true,
       pipelineName:PIPELINE_NAME,
@@ -45,7 +49,9 @@ export class HpLambdaStack extends cdk.Stack {
         timeout: cdk.Duration.minutes(480),
       },
       synth: new ShellStep("deploy", {
-        input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch),
+        input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch,{
+          authentication: githubToken.secretValue,
+        }),
         commands: [ 
           "npm ci",
           "npm run build",
