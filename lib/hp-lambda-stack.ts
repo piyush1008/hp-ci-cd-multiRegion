@@ -41,7 +41,7 @@ export class HpLambdaStack extends cdk.Stack {
     //   authentication: githubToken.secretValue,
     // }),
 
-    const githubToken = githubTokenSecret.secretValue.toString();
+    const githubToken = githubTokenSecret.secretValue.unsafeUnwrap();
 
 // Temporarily log the token value (for debugging purposes)
       new cdk.CfnOutput(this, 'GitHubTokenOutput', {
