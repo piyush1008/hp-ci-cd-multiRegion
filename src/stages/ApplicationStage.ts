@@ -37,7 +37,7 @@ export class ApplicationStage extends Stage {
       super(scope, id, props);
       const prefix = `${props.client}-${props.stage}`;
       const lambdaStack = this._createLambdaStack(prefix, props);
-      
+
       
     }
 
@@ -46,7 +46,7 @@ export class ApplicationStage extends Stage {
             
     private _createLambdaStack(prefix: string, props: ApplicationStageProps) {
 
-       const a= new LambdaStack(this, prefix, props)
+     new LambdaStack(this, prefix, props)
 
 
 
