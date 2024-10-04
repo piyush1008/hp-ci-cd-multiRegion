@@ -71,6 +71,7 @@ export class HpLambdaStack extends cdk.Stack {
       pipelineName:PIPELINE_NAME,
       selfMutation: true,
       publishAssetsInParallel: false,
+      role: pipelineRole, // Attach the custom role to the pipeline
       codeBuildDefaults: {
         buildEnvironment: {
           buildImage: LinuxBuildImage.STANDARD_7_0,
