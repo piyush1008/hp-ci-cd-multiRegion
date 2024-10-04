@@ -6,6 +6,7 @@ import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelin
 import { LinuxBuildImage } from 'aws-cdk-lib/aws-codebuild';
 import { ApplicationStage } from '../src/stages/ApplicationStage';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as iam from 'aws-cdk-lib/aws-iam';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class HpLambdaStack extends cdk.Stack {
@@ -35,7 +36,15 @@ export class HpLambdaStack extends cdk.Stack {
      const githubBranch = this._props.repoTriggerBranch;
 
 
+     const pipelineRole = new iam.Role(this, 'PipelineRole', {
+      assumedBy: new iam.ServicePrincipal('codepipeline.amazonaws.com'),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+      ]
+    });
+
      const githubTokenSecret  = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
+     githubTokenSecret.grantRead(pipelineRole);
 
     //  / input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch, {
     //   authentication: githubToken.secretValue,
@@ -49,6 +58,13 @@ export class HpLambdaStack extends cdk.Stack {
         description: 'Temporary output of GitHub Token for debugging'
       });
 
+
+      // const codeBuildRole = new iam.Role(this, 'CodeBuildRole', {
+      //   assumedBy: new iam.ServicePrincipal('codebuild.amazonaws.com'),
+      //   managedPolicies: [
+      //     iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+      //   ]
+      // });
 
      const pipeline = new CodePipeline(this, "CDKPipeline", {
       crossAccountKeys: true,
