@@ -10,5 +10,5 @@ export const DevUsEast:ApplicationStageProps={
     client: "hpdemo4",
     stage: "lab",
 
-    
+
 }
