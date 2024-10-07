@@ -15,5 +15,17 @@ export const AppConfig={
         repoTriggerBranch: "dev",
         githubOrg:"piyush1008",
         stages: [DevEuCentral, DevUsEast ],
+    },
+    hpdemoLab:{
+        env: {
+            account: "015021686405",
+            region: "us-east-1"
+        },
+        pipelineName: "hp-lab-multiregion-github",
+        pipelineStackName: "hp-lab-multiregion-github",
+        repoName: "hp-ci-cd-multiRegion",
+        repoTriggerBranch: "lab",
+        githubOrg:"piyush1008",
+        stages: [DevEuCentral, DevUsEast ],
     }
 }

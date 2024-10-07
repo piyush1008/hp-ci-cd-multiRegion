@@ -18,6 +18,10 @@ function buildStack(){
      case "dev":
        new HpLambdaStack(app, 'hp-lambda-dev',"dev", AppConfig.hpdemoDev );
        break;
+
+     case "lab":
+       new HpLambdaStack(app, 'hp-lambda-lab',"lab", AppConfig.hpdemoLab);
+        break;
      case "prod":
       //  new HpLambdaStack(app, 'hp-lambda-prod', { env: { region:"us-east-1"}});
        break;
