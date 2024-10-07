@@ -22,6 +22,7 @@ export class HpLambdaStack extends cdk.Stack {
     //create a pipeline with github repository
     const pipeline = this._createPipeline();
 
+    
     //add stages to pipeline
     this.createStage(pipeline)
   }
