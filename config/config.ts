@@ -9,11 +9,11 @@ export const AppConfig={
             account: "015021686405",
             region: "us-east-1"
         },
-        pipelineName: "hp-dev-demo-multiregion-github",
-        pipelineStackName: "hp-dev-demo-multiregion-github",
-        repoName: "hp-demo-ci-cd-multiregion-v3",
+        pipelineName: "hp-dev-multiregion-github",
+        pipelineStackName: "hp-dev-multiregion-github",
+        repoName: "hp-ci-cd-multiRegion",
         repoTriggerBranch: "dev",
-        githubOrg:"CSS-IT-Integration",
+        githubOrg:"piyush/1008",
         stages: [DevEuCentral, DevUsEast ],
     }
 }

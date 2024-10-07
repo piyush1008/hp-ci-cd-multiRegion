@@ -22,7 +22,7 @@ export class HpLambdaStack extends cdk.Stack {
     //create a pipeline with github repository
     const pipeline = this._createPipeline();
 
-    
+
     //add stages to pipeline
     this.createStage(pipeline)
   }
@@ -37,27 +37,27 @@ export class HpLambdaStack extends cdk.Stack {
      const githubBranch = this._props.repoTriggerBranch;
 
 
-     const pipelineRole = new iam.Role(this, 'PipelineRole', {
-      assumedBy: new iam.ServicePrincipal('codepipeline.amazonaws.com'),
-      managedPolicies: [
-        iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
-      ]
-    });
+    //  const pipelineRole = new iam.Role(this, 'PipelineRole', {
+    //   assumedBy: new iam.ServicePrincipal('codepipeline.amazonaws.com'),
+    //   managedPolicies: [
+    //     iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+    //   ]
+    // // });
 
-     const githubTokenSecret  = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
-     githubTokenSecret.grantRead(pipelineRole);
+    //  const githubTokenSecret  = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubToken', 'github-token');
+    //  githubTokenSecret.grantRead(pipelineRole);
 
     //  / input: CodePipelineSource.gitHub(`${githubOrg}/${githubRepo}`, githubBranch, {
     //   authentication: githubToken.secretValue,
     // }),
 
-    const githubToken = githubTokenSecret.secretValue.unsafeUnwrap();
+    // const githubToken = githubTokenSecret.secretValue.unsafeUnwrap();
 
-// Temporarily log the token value (for debugging purposes)
-      new cdk.CfnOutput(this, 'GitHubTokenOutput', {
-        value: githubToken || 'Token not found',
-        description: 'Temporary output of GitHub Token for debugging'
-      });
+// // Temporarily log the token value (for debugging purposes)
+//       new cdk.CfnOutput(this, 'GitHubTokenOutput', {
+//         value: githubToken || 'Token not found',
+//         description: 'Temporary output of GitHub Token for debugging'
+//       });
 
 
       // const codeBuildRole = new iam.Role(this, 'CodeBuildRole', {
@@ -72,7 +72,7 @@ export class HpLambdaStack extends cdk.Stack {
       pipelineName:PIPELINE_NAME,
       selfMutation: true,
       publishAssetsInParallel: false,
-      role: pipelineRole, // Attach the custom role to the pipeline
+      // role: pipelineRole, // Attach the custom role to the pipeline
       codeBuildDefaults: {
         buildEnvironment: {
           buildImage: LinuxBuildImage.STANDARD_7_0,
