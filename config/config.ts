@@ -13,7 +13,7 @@ export const AppConfig={
         pipelineStackName: "hp-dev-multiregion-github",
         repoName: "hp-ci-cd-multiRegion",
         repoTriggerBranch: "dev",
-        githubOrg:"piyush/1008",
+        githubOrg:"piyush1008",
         stages: [DevEuCentral, DevUsEast ],
     }
 }
